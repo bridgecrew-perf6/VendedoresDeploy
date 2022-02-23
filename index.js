@@ -90,4 +90,6 @@ app.use((req, res, next) => {
 });
 
 
-app.listen(PORT,IP);
+app.listen(PORT,IP,()=>{
+    console.log('server started at port ' + PORT + ',ip: ' + IP);
+});
