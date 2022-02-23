@@ -6,6 +6,10 @@ const path = require('path');
 
 const api_key = require('./apiKey');
 
+const PORT= process.env.ALWAYSDATA_HTTPD_PORT || process.env.PORT || 4000;
+const IP = process.env.ALWAYSDATA_HTTPD_IP || process.env.IP || "127.0.0.1";
+
+
 const dist_dir = process.env.DIST_DIR || path.resolve(__dirname,'dist');
 
 let publicPath = '/static/';
@@ -86,4 +90,4 @@ app.use((req, res, next) => {
 });
 
 
-app.listen(4000);
+app.listen(PORT,IP);
