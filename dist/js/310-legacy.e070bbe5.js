@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkvendedores"]=self["webpackChunkvendedores"]||[]).push([[310],{8310:function(e,n,r){r.r(n),r.d(n,{default:function(){return o}});var u=function(){var e=this,n=e.$createElement,r=e._self._c||n;return r("h2",[e._v("Error 404")])},t=[],l={},s=l,c=r(1001),f=(0,c.Z)(s,u,t,!1,null,null,null),o=f.exports}}]);
+//# sourceMappingURL=310-legacy.e070bbe5.js.map
