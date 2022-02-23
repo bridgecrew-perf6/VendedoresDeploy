@@ -53,8 +53,7 @@ app.get('/alegra/*', (req, resp) => {
     // url = url + ((url.indexOf('?') < 0) ? '?' : '&');
     // url = url + `tbm=isch&engine=google&api_key=${api_key}`;
     console.log(url);
-    req.headers.authorization = alegra_auth;
-    axios.get('https://api.alegra.com' + url).then(r => {
+    axios.get('https://api.alegra.com' + url,{headers:{Authorization:alegra_auth}}).then(r => {
         resp.set("Access-Control-Allow-Origin", "*");
         resp.set("Access-Control-Allow-Headers", "*");
         resp.set("Access-Control-Allow-Methods", "*");
@@ -81,4 +80,4 @@ app.use((req, res, next) => {
 });
 
 
-app.listen(3000);
+app.listen(4000);
