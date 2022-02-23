@@ -65,6 +65,12 @@ app.get('/alegra/*', (req, resp) => {
 });
 
 
+app.get('/update',(req,res)=>{
+    console.log('site update required');
+    res.status(200).send('updating...');
+    process.exit();
+})
+
 app.use(publicPath, express.static(dist_dir, { extensions: ["js"] }));
 // app.get(publicPath,(req, res, next) => {
 //     res.sendFile(process.env.DIST_DIR + "/index.html");
