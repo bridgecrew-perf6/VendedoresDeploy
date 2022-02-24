@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkvendedores"]=self["webpackChunkvendedores"]||[]).push([[514],{3514:function(e,n,u){u.r(n),u.d(n,{default:function(){return a}});var r=function(){var e=this,n=e.$createElement,u=e._self._c||n;return u("div",[u("h2",[e._v("Home Layout")]),u("router-view")],1)},t=[],l={},s=l,o=u(1001),c=(0,o.Z)(s,r,t,!1,null,null,null),a=c.exports}}]);
-//# sourceMappingURL=514.b173e225.js.map
