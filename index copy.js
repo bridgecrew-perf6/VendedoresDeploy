@@ -34,14 +34,17 @@ app.use(express.urlencoded({ extended: true }));
 
 //function will be attached to another site which is already hosted online on Alwaysdata
 app.get('/serpapi/*', (req, resp) => {
+    resp.set("Access-Control-Allow-Origin", "*");
+    resp.set("Access-Control-Allow-Headers", "*");
+    resp.set("Access-Control-Allow-Methods", "*");
+    if (req.header('authorization') !== 'Basic ZHZlZ2FwOTU6MTIzNDU2Nzg=') {//dvegap95:12345678
+        return resp.status(401).json({ message: 'unauthorized' });
+    }
     let url = req.url.substring('/serpapi'.length);
     url = url + ((url.indexOf('?') < 0) ? '?' : '&');
     url = url + `tbm=isch&engine=google&api_key=${api_key}`;
     console.log(url);
     axios.get('https://serpapi.com' + url).then(r => {
-        resp.set("Access-Control-Allow-Origin", "*");
-        resp.set("Access-Control-Allow-Headers", "*");
-        resp.set("Access-Control-Allow-Methods", "*");
         resp.json(r.data);
     }).catch((e) => {
         resp.status(500).json(e);
@@ -53,28 +56,37 @@ app.get('/serpapi/*', (req, resp) => {
 const alegra_auth = 'Basic ZHZlZ2FwOTVAZ21haWwuY29tOjc2NWQ2NTlmMDFiMTgyZjNkYmFh';
 
 app.get('/alegra/*', (req, resp) => {
+    resp.set("Access-Control-Allow-Origin", "*");
+    resp.set("Access-Control-Allow-Headers", "*");
+    resp.set("Access-Control-Allow-Methods", "*");
+    // if (req.header('authorization') !== 'Basic ZHZlZ2FwOTU6MTIzNDU2Nzg=') {//dvegap95:12345678
+    //     return resp.status(401).json({ message: 'unauthorized' });
+    // }
     let url = req.url.substring('/alegra'.length);
     // url = url + ((url.indexOf('?') < 0) ? '?' : '&');
     // url = url + `tbm=isch&engine=google&api_key=${api_key}`;
     console.log(url);
-    axios.get('https://api.alegra.com' + url, { headers: { Authorization: alegra_auth } }).then(r => {
-        resp.set("Access-Control-Allow-Origin", "*");
-        resp.set("Access-Control-Allow-Methods", "*");
+    axios.get('https://api.alegra.com' + url, { headers: {Authorization: alegra_auth } }).then(r => {
         resp.json(r.data);
     }).catch((e) => {
         resp.status(500).json(e);
         console.error(e);
     });
 });
+
+
 app.post('/alegra/*', (req, resp) => {
+    resp.set("Access-Control-Allow-Origin", "*");
+    resp.set("Access-Control-Allow-Headers", "*");
+    resp.set("Access-Control-Allow-Methods", "*");
+    if (req.header('authorization') !== 'Basic ZHZlZ2FwOTU6MTIzNDU2Nzg=') {//dvegap95:12345678
+        return resp.status(401).json({ message: 'unauthorized' });
+    }
     let url = req.url.substring('/alegra'.length);
     // url = url + ((url.indexOf('?') < 0) ? '?' : '&');
     // url = url + `tbm=isch&engine=google&api_key=${api_key}`;
     console.log(url);
-    axios.post('https://api.alegra.com' + url, { headers: { Authorization: alegra_auth }, body: req.body }).then(r => {
-        resp.set("Access-Control-Allow-Origin", "*");
-        resp.set("Access-Control-Allow-Headers", "*");
-        resp.set("Access-Control-Allow-Methods", "*");
+    axios.post('https://api.alegra.com' + url, { headers: { ...req.headers, Authorization: alegra_auth }, body: req.body }).then(r => {
         resp.json(r.data);
     }).catch((e) => {
         resp.status(500).json(e);
