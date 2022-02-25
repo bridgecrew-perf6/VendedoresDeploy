@@ -1,8 +1,14 @@
 const { default: axios } = require('axios');
+var cors = require('cors');
 const express = require('express');
 var app = express();
 const fs = require('fs');
 const path = require('path');
+
+
+//TODO security for the middleware endpoints
+
+app.use(cors());
 
 const api_key = require('./apiKey');
 
@@ -39,9 +45,9 @@ app.get('/serpapi/*', (req, resp) => {
     url = url + `tbm=isch&engine=google&api_key=${api_key}`;
     console.log(url);
     axios.get('https://serpapi.com' + url).then(r => {
-        resp.set("Access-Control-Allow-Origin", "*");
-        resp.set("Access-Control-Allow-Headers", "*");
-        resp.set("Access-Control-Allow-Methods", "*");
+        // resp.set("Access-Control-Allow-Origin", "*");
+        // resp.set("Access-Control-Allow-Headers", "*");
+        // resp.set("Access-Control-Allow-Methods", "*");
         resp.json(r.data);
     }).catch((e) => {
         resp.status(500).json(e);
@@ -58,8 +64,8 @@ app.get('/alegra/*', (req, resp) => {
     // url = url + `tbm=isch&engine=google&api_key=${api_key}`;
     console.log(url);
     axios.get('https://api.alegra.com' + url, { headers: { Authorization: alegra_auth } }).then(r => {
-        resp.set("Access-Control-Allow-Origin", "*");
-        resp.set("Access-Control-Allow-Methods", "*");
+        // resp.set("Access-Control-Allow-Origin", "*");
+        // resp.set("Access-Control-Allow-Methods", "*");
         resp.json(r.data);
     }).catch((e) => {
         resp.status(500).json(e);
@@ -71,10 +77,10 @@ app.post('/alegra/*', (req, resp) => {
     // url = url + ((url.indexOf('?') < 0) ? '?' : '&');
     // url = url + `tbm=isch&engine=google&api_key=${api_key}`;
     console.log(url);
-    axios.post('https://api.alegra.com' + url, { headers: { Authorization: alegra_auth }, body: req.body }).then(r => {
-        resp.set("Access-Control-Allow-Origin", "*");
-        resp.set("Access-Control-Allow-Headers", "*");
-        resp.set("Access-Control-Allow-Methods", "*");
+    axios.post('https://api.alegra.com' + url, req.body, { headers: { authorization: alegra_auth } }).then(r => {
+        // resp.set("Access-Control-Allow-Origin", "*");
+        // resp.set("Access-Control-Allow-Headers", "*");
+        // resp.set("Access-Control-Allow-Methods", "*");
         resp.json(r.data);
     }).catch((e) => {
         resp.status(500).json(e);
